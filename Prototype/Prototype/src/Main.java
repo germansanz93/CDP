@@ -1,3 +1,4 @@
+import cache.BundledShapeCache;
 import shapes.Circle;
 import shapes.Rectangle;
 import shapes.Shape;
@@ -33,23 +34,28 @@ public class Main {
     }
 
     public static void cloneAndCompare(List<Shape> shapes, List<Shape> copies) {
-        for (Shape shape : shapes) {
-            copies.add(shape.getClone());
+        BundledShapeCache cache = new BundledShapeCache();
+
+        Shape shape1 = cache.get("Big green circle");
+        Shape shape2 = cache.get("Medium blue rectangle");
+        Shape shape3 = cache.get("Medium blue rectangle");
+
+        if (shape1 != shape2 && !shape1.equals(shape2)) {
+            System.out.println("Big green circle != Medium blue rectangle (yay!)");
+        } else {
+            System.out.println("Big green circle == Medium blue rectangle (booo!)");
         }
 
-        for (int i = 0; i < shapes.size(); i++) {
-            Shape shape = shapes.get(i);
-            Shape copy = copies.get(i);
 
-            if (shape != copy) {
-                if (shape.equals(copy)){
-                    System.out.println(i + "- The objects are identical, but they are not in the same memory spot. They are copies!");
-                } else {
-                    System.out.println(i + "- The objects are different!");
-                }
+        if (shape2 != shape3) {
+            if (shape2.equals(shape3)) {
+                System.out.println("The objects are identical, but they are not in the same memory spot. They are copies!");
             } else {
-                System.out.println(i + "- The objects are in the same memory spot. They are no copies, they are both te same object!");
+                System.out.println("The objects are different!");
             }
+        } else {
+            System.out.println("The objects are in the same memory spot. They are no copies, they are both te same object!");
         }
+
     }
 }
